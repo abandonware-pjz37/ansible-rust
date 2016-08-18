@@ -8,21 +8,8 @@ sudo:
   - required
 
 install:
-  - yes | sudo apt-get --yes --force-yes update
-  - yes | sudo apt-get --yes --force-yes upgrade
-
-  - sudo apt-get --yes install python-pip
-  - sudo pip install --upgrade pip
-
-  - sudo pip install ndg-httpsclient
-  - sudo pip install pyasn1
-  - sudo pip install pyopenssl
-  - sudo pip install urllib3
-
+  - sudo pip install 'requests[security]'
   - sudo pip install ansible
-
-  - python --version
-  - ansible --version
 
 script:
   # Fix layout
@@ -37,7 +24,6 @@ script:
   - ansible-playbook tests/test.yml -i tests/inventory --connection=local
 
   # Run idempotency test
-  - rm log
   - ansible-playbook tests/test.yml -i tests/inventory --connection=local | tee log
   - grep ' changed=0 ' log || exit 1
 
