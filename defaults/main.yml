@@ -1,0 +1,56 @@
+---
+
+# Properties of archive taken from:
+# * https://www.rust-lang.org/en-US/downloads.html
+
+rust_version: 1.10.0
+
+# Architecture: x86_64, i686
+rust_architecture: x86_64
+
+rust_clean: False
+
+# Archive names, source URL and hashsums {
+
+# Instructions to verify archive hash:
+# > wget https://static.rust-lang.org/dist/rust-1.10.0-x86_64-unknown-linux-gnu.tar.gz
+# > openssl sha256 rust-1.10.0-x86_64-unknown-linux-gnu.tar.gz
+# SHA256(rust-1.10.0-x86_64-unknown-linux-gnu.tar.gz)= f189303d52b37c8bb694b9d9739ae73ffa926cbdeffde1d5d6a5c6e811940293
+
+rust_archive_name: rust-{{ rust_version }}-{{ rust_architecture }}-unknown-linux-gnu.tar.gz
+rust_archive_url: https://static.rust-lang.org/dist/{{ rust_archive_name }}
+rust_archive_sha256: f189303d52b37c8bb694b9d9739ae73ffa926cbdeffde1d5d6a5c6e811940293
+
+rust_std_archive_name: rust-std-{{ rust_version }}-{{ rust_architecture }}-unknown-linux-gnu.tar.gz
+rust_std_archive_url: https://static.rust-lang.org/dist/{{ rust_std_archive_name }}
+rust_std_archive_sha256: 41b541148a2f595c6b6d5b26e1aabfc3c090fe45686bb272c13e20d4aba03c44
+
+# }
+
+# Working directory can be set by user name or explicitly
+rust_user: rust
+rust_dir: /home/{{ rust_user }}/.ansible-rust
+
+# Working with stamps. After command finished save stamp file. If stamp file
+# already exists it means that execution of command can be skipped.
+# It makes work this role both efficiently and correctly (in case if connection
+# failed or task is interrupted by user) {
+
+# Directory with stamps
+rust_stamps_dir: "{{ rust_dir }}/ansible-stamps"
+
+rust_archive_unpack_done: "{{ rust_stamps_dir }}/unpack-{{ rust_archive_sha256 }}.DONE" # Is archive unpacked?
+rust_std_archive_unpack_done: "{{ rust_stamps_dir }}/unpack-{{ rust_std_archive_sha256 }}.DONE" # Is archive unpacked?
+rust_merge_done: "{{ rust_stamps_dir }}/merge-{{ rust_archive_sha256 }}-{{ rust_std_archive_sha256 }}.DONE" # Do directories merged?
+
+# }
+
+# Directories to merge {
+rust_copy_from: "{{ rust_dir }}/rust-std-{{ rust_version }}-{{ rust_architecture }}-unknown-linux-gnu/rust-std-{{ rust_architecture }}-unknown-linux-gnu/lib/rustlib/{{ rust_architecture }}-unknown-linux-gnu"
+rust_copy_to: "{{ rust_dir }}/rust-{{ rust_version }}-{{ rust_architecture }}-unknown-linux-gnu/rustc/lib/rustlib"
+# }
+
+# Output variables to modify PATH {
+rust_rustc_path: "{{ rust_dir }}/rust-{{ rust_version }}-{{ rust_architecture }}-unknown-linux-gnu/rustc/bin"
+rust_cargo_path: "{{ rust_dir}}/rust-{{ rust_version }}-{{ rust_architecture }}-unknown-linux-gnu/cargo/bin"
+# }
