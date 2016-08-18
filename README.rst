@@ -1,6 +1,11 @@
 rust
 ====
 
+|travis|
+
+.. |travis| image:: https://travis-ci.org/ruslo/ansible-rust.svg?branch=master
+  :target: https://travis-ci.org/ruslo/ansible-rust/builds
+
 Ansible role for Installing Rust on Linux using ``.tar.gz`` archives instead
 of ``rustup.sh`` script.
 
