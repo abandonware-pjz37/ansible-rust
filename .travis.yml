@@ -4,25 +4,19 @@ language:
 python:
   - "2.7"
 
-# Use the new container infrastructure
-sudo:
-  - false
-
-# Install ansible
-addons:
-  apt:
-    packages:
-    - python-pip
-
 install:
-  # Install ansible
-  - pip install ansible
+  - yes | sudo apt-get --yes --force-yes update
+  - yes | sudo apt-get --yes --force-yes upgrade
 
-  # Check ansible version
-  - ansible --version
+  - sudo apt-get --yes install python-pip
+  - sudo pip install --upgrade pip
 
-  # Create ansible.cfg with correct roles_path
-  - printf '[defaults]\nroles_path=../' > ansible.cfg
+  - sudo pip install ndg-httpsclient
+  - sudo pip install pyasn1
+  - sudo pip install pyopenssl
+  - sudo pip install urllib3
+
+  - sudo pip install ansible
 
 script:
   # Fix layout
