@@ -1,7 +1,5 @@
-rust
-====
-
-|travis|
+rust |travis|
+=============
 
 .. |travis| image:: https://travis-ci.org/ruslo/ansible-rust.svg?branch=master
   :target: https://travis-ci.org/ruslo/ansible-rust/builds
