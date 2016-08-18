@@ -4,6 +4,9 @@ language:
 python:
   - "2.7"
 
+sudo:
+  - required
+
 install:
   - yes | sudo apt-get --yes --force-yes update
   - yes | sudo apt-get --yes --force-yes upgrade
