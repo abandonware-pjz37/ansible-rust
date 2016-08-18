@@ -21,6 +21,9 @@ install:
 
   - sudo pip install ansible
 
+  - python --version
+  - ansible --version
+
 script:
   # Fix layout
   - cd ..
