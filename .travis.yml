@@ -17,6 +17,8 @@ script:
   - mv ansible-rust rust
   - cd rust
 
+  - python --version
+
   # Basic role syntax check
   - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
 
