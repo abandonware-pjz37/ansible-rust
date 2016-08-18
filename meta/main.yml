@@ -1,0 +1,31 @@
+galaxy_info:
+  author: Ruslan Baratov
+  description: Install Rust on Linux using .tar.gz archives instead of rustup.sh
+  company:
+
+  issue_tracker_url: https://github.com/ruslo/ansible-rust/issues
+
+  license: BSD
+
+  min_ansible_version: 1.2
+
+  platforms:
+  - name: Fedora
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  - name: GenericLinux
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+
+  galaxy_tags:
+    - rust
+    - installer
+    - development
+
+dependencies: []
