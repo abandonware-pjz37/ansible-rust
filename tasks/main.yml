@@ -16,14 +16,14 @@
     path: "{{ rust_stamps_dir }}"
     state: directory
 
-- name: Download Rust archive
+- name: "Download Rust archive: {{ rust_archive_url }}"
   get_url:
     url: "{{ rust_archive_url }}"
     checksum: "sha256:{{ rust_archive_sha256 }}"
     dest: "{{ rust_dir }}/{{ rust_archive_name }}"
     validate_certs: "{{ rust_validate_certs }}"
 
-- name: Download Rust std archive
+- name: "Download Rust std archive: {{ rust_std_archive_url }}"
   get_url:
     url: "{{ rust_std_archive_url }}"
     checksum: "sha256:{{ rust_std_archive_sha256 }}"
