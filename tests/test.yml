@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  roles:
+    - rust
+  vars:
+    - rust_user: travis
