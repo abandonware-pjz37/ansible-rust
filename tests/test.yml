@@ -4,3 +4,4 @@
     - rust
   vars:
     - rust_user: travis
+    - rust_validate_certs: False

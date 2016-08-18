@@ -54,3 +54,9 @@ rust_copy_to: "{{ rust_dir }}/rust-{{ rust_version }}-{{ rust_architecture }}-un
 rust_rustc_path: "{{ rust_dir }}/rust-{{ rust_version }}-{{ rust_architecture }}-unknown-linux-gnu/rustc/bin"
 rust_cargo_path: "{{ rust_dir}}/rust-{{ rust_version }}-{{ rust_architecture }}-unknown-linux-gnu/cargo/bin"
 # }
+
+# Validate certificates while downloading archives.
+# Variable added for testing on Travis CI. I guess it's okay to use False
+# here since we already checking archive will hashsum.
+# Let it be True by default just for sure.
+rust_validate_certs: True
