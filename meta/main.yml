@@ -1,9 +1,9 @@
 galaxy_info:
   author: Ruslan Baratov
   description: Install Rust on Linux using .tar.gz archives instead of rustup.sh
-  company:
-
   issue_tracker_url: https://github.com/ruslo/ansible-rust/issues
+
+  github_branch: master
 
   license: BSD
 
