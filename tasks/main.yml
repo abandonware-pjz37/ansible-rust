@@ -1,0 +1,80 @@
+---
+
+- name: "Clean directory: {{ rust_dir }}"
+  file:
+    path: "{{ rust_dir }}"
+    state: absent
+  when: rust_clean
+
+- name: "Prepare destination directory: {{ rust_dir }}"
+  file:
+    path: "{{ rust_dir }}"
+    state: directory
+
+- name: "Prepare stamps directory: {{ rust_stamps_dir }}"
+  file:
+    path: "{{ rust_stamps_dir }}"
+    state: directory
+
+- name: Download Rust archive
+  get_url:
+    url: "{{ rust_archive_url }}"
+    checksum: "sha256:{{ rust_archive_sha256 }}"
+    dest: "{{ rust_dir }}/{{ rust_archive_name }}"
+
+- name: Download Rust std archive
+  get_url:
+    url: "{{ rust_std_archive_url }}"
+    checksum: "sha256:{{ rust_std_archive_sha256 }}"
+    dest: "{{ rust_dir }}/{{ rust_std_archive_name }}"
+
+- name: Unarchive Rust
+  unarchive:
+    src: "{{ rust_dir }}/{{ rust_archive_name }}"
+    dest: "{{ rust_dir }}"
+    creates: "{{ rust_archive_unpack_done }}"
+
+- stat: "path={{ rust_archive_unpack_done }}"
+  register: x
+
+- name: Unarchive Rust done
+  file:
+    path: "{{ rust_archive_unpack_done }}"
+    state: touch
+  when: not x.stat.exists
+
+- name: Unarchive Rust std
+  unarchive:
+    src: "{{ rust_dir }}/{{ rust_std_archive_name }}"
+    dest: "{{ rust_dir }}"
+    creates: "{{ rust_std_archive_unpack_done }}"
+
+- stat: "path={{ rust_std_archive_unpack_done }}"
+  register: x
+
+- name: Unarchive Rust std done
+  file:
+    path: "{{ rust_std_archive_unpack_done }}"
+    state: touch
+  when: not x.stat.exists
+
+- stat: "path={{ rust_merge_done }}"
+  register: x
+
+- name: Merge directories
+  command: cp -r "{{ rust_copy_from }}" "{{ rust_copy_to }}"
+  when: not x.stat.exists
+
+- name: Merge done
+  file:
+    path: "{{ rust_merge_done }}"
+    state: touch
+  when: not x.stat.exists
+
+- name: Path to rustc
+  debug:
+    msg: "Path to rustc : {{ rust_rustc_path }}"
+
+- name: Path to cargo
+  debug:
+    msg: "Path to cargo : {{ rust_cargo_path }}"
