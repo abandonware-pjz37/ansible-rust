@@ -33,6 +33,7 @@
     src: "{{ rust_dir }}/{{ rust_archive_name }}"
     dest: "{{ rust_dir }}"
     creates: "{{ rust_archive_unpack_done }}"
+    remote_src: yes
 
 - stat: "path={{ rust_archive_unpack_done }}"
   register: x
